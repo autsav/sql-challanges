@@ -1,0 +1,32 @@
+
+
+-- Analyze if there is a clear distinction in the sales of the LCS (Large Customer Sales) and SMB (Small and Medium Businesses) 
+-- sales teams. Anything that doesn’t match LCS or SMB can be called Other.
+
+-- How much revenue did the LCS and SMB sales teams generate in 2022 split between domestic and international activity?
+
+SELECT sales_team,
+		CASE 
+  			WHEN geo_user = geo_advertiser THEN 'Domestic'
+      	ELSE 'International'
+    	END AS activity_type,
+    SUM(revenue) AS total_revenue
+    
+	FROM meta_revenue
+	WHERE 
+		years = '2022'
+  AND (sales_team LIKE '%LCS%' OR sales_team LIKE '%SMB%')
+  
+GROUP BY sales_team, activity_type
+       
+
+
+    
+      
+
+
+
+
+
+
+
